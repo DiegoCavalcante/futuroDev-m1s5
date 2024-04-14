@@ -13,13 +13,24 @@ let precoProduto = document.getElementById('preco-produto')
 
 consultar.addEventListener('click', () => {
     //pesquisar o produto    
-    const inputProduto = document.getElementById('product').value    
-    let result = [ ]
-    if(inputProduto){
-        console.log(typeof Number(inputProduto))
-        result = produtos.filter((element) => {            
-            return Number(inputProduto) == element.codProduto
-        })
+    const inputProduto = document.getElementById('product').value
+    let result 
+    if(!isNaN(Number(inputProduto)) ){        
+        result = buscarCodProduto(inputProduto)
+        if(result){
+            precoProduto.innerHTML = `O valor do produto é ${result.preco}`
+        }else{
+            precoProduto.innerHTML = 'Produto não encontrado'
+        }
+        
     }
-    precoProduto.innerHTML = `O valor do produto é ${result[0].preco}`
+    
 })
+
+function buscarCodProduto(cod){
+    let result = [ ]
+    result = produtos.filter((element) => {            
+        return cod == element.codProduto
+    })
+    return result.length > 0 ? result[0] : null
+}
