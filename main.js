@@ -1,4 +1,5 @@
 let produtos = []
+let carrinho = []
 
 let produto = {
     codProduto: 1,
@@ -17,21 +18,12 @@ consultar.addEventListener('click', () => {
     let result 
     if(!isNaN(Number(inputProduto)) ){        
         result = buscarCodProduto(inputProduto)
-        if(result){
-            precoProduto.innerHTML = `O valor do produto é ${result.preco}`
-        }else{
-            precoProduto.innerHTML = 'Produto não encontrado'
-        }
+        precoProduto.innerHTML = mostrarPreco(result)  
         
     }else{
         result = buscarNomeProduto(inputProduto)
-        if(result){
-            precoProduto.innerHTML = `O valor do produto é ${result.preco}`
-        }else{
-            precoProduto.innerHTML = 'Produto não encontrado'
-        }
-    }
-    
+        precoProduto.innerHTML = mostrarPreco(result)        
+    }    
 })
 
 function buscarCodProduto(cod){
@@ -48,4 +40,12 @@ function buscarNomeProduto(nome){
         return nome.toLowerCase() == element.nome.toLowerCase()
     })
     return result.length > 0 ? result[0] : null
+}
+
+function mostrarPreco(obj){
+    let result = 'Produto não encontrado'
+    if(obj){
+        result = `O valor do produto é ${obj.preco}`
+    }
+    return result
 }
