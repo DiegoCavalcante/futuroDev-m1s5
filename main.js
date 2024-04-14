@@ -10,6 +10,7 @@ let produto = {
 produtos.push(produto)
 
 const consultar  = document.getElementById('search')
+const comprar  = document.getElementById('comprar')
 let precoProduto = document.getElementById('preco-produto')
 
 consultar.addEventListener('click', () => {
@@ -23,6 +24,19 @@ consultar.addEventListener('click', () => {
     }else{
         result = buscarNomeProduto(inputProduto)
         precoProduto.innerHTML = mostrarPreco(result)        
+    }    
+})
+
+comprar.addEventListener('click', () => {
+    const inputProduto = document.getElementById('product').value
+    let result 
+    if(!isNaN(Number(inputProduto)) ){        
+        result = buscarCodProduto(inputProduto)
+        carrinho.push(result)
+        
+    }else{
+        result = buscarNomeProduto(inputProduto)
+        carrinho.push(result)       
     }    
 })
 
