@@ -23,6 +23,13 @@ consultar.addEventListener('click', () => {
             precoProduto.innerHTML = 'Produto não encontrado'
         }
         
+    }else{
+        result = buscarNomeProduto(inputProduto)
+        if(result){
+            precoProduto.innerHTML = `O valor do produto é ${result.preco}`
+        }else{
+            precoProduto.innerHTML = 'Produto não encontrado'
+        }
     }
     
 })
@@ -31,6 +38,14 @@ function buscarCodProduto(cod){
     let result = [ ]
     result = produtos.filter((element) => {            
         return cod == element.codProduto
+    })
+    return result.length > 0 ? result[0] : null
+}
+
+function buscarNomeProduto(nome){
+    let result = [ ]
+    result = produtos.filter((element) => {            
+        return nome.toLowerCase() == element.nome.toLowerCase()
     })
     return result.length > 0 ? result[0] : null
 }
