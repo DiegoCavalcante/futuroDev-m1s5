@@ -14,6 +14,7 @@ const comprar  = document.getElementById('comprar')
 const buttonCarrinho  = document.getElementById('carrinho')
 let precoProduto = document.getElementById('preco-produto')
 let totalCarrinho = document.getElementById('preco-carrinho')
+let totalProdutos = document.getElementById('total-produtos')
 
 consultar.addEventListener('click', () => {
     //pesquisar o produto    
@@ -38,7 +39,8 @@ comprar.addEventListener('click', () => {
             carrinho.push(result)
             console.log(carrinho)
             const valorCarrinho = new Intl.NumberFormat("pt-BR").format(precoCarrinho(carrinho))    
-            totalCarrinho.innerText = `Total do carrinho R$ ${valorCarrinho}`
+            totalCarrinho.innerText = `Valor total do carrinho R$ ${valorCarrinho}`
+            totalProdutos.innerText = `Quantidade de itens no carrinho ${qtdItens(carrinho)}`
         }
          
         
@@ -48,6 +50,7 @@ comprar.addEventListener('click', () => {
             carrinho.push(result)
             const valorCarrinho = new Intl.NumberFormat("pt-BR").format(precoCarrinho(carrinho))    
             totalCarrinho.innerText = `Total do carrinho R$ ${valorCarrinho}`
+            totalProdutos.innerText = `Quantidade de itens no carrinho ${qtdItens(carrinho)}`
         }     
     }    
 })
@@ -88,4 +91,8 @@ function precoCarrinho(obj){
         return acc + cur.preco
     },0)
     return result
+}
+
+function qtdItens(obj){
+    return obj.length
 }
