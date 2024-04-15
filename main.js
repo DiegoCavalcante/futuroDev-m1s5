@@ -9,12 +9,23 @@ let produto = {
 
 produtos.push(produto)
 
+
+
 const consultar  = document.getElementById('search')
 const comprar  = document.getElementById('comprar')
 const buttonCarrinho  = document.getElementById('carrinho')
 let precoProduto = document.getElementById('preco-produto')
 let totalCarrinho = document.getElementById('preco-carrinho')
 let totalProdutos = document.getElementById('total-produtos')
+
+if(localStorage.hasOwnProperty('carrinho')){
+    carrinho = JSON.parse(localStorage.getItem('carrinho'))
+    console.log(carrinho)
+    const valorCarrinho = new Intl.NumberFormat("pt-BR").format(precoCarrinho(carrinho))  
+    totalCarrinho.innerText = `Valor total do carrinho R$ ${valorCarrinho}`
+    totalProdutos.innerText = `Quantidade de itens no carrinho ${qtdItens(carrinho)}`
+}
+
 
 consultar.addEventListener('click', () => {
     //pesquisar o produto    
@@ -37,8 +48,9 @@ comprar.addEventListener('click', () => {
         result = buscarCodProduto(inputProduto)
         if(result){
             carrinho.push(result)
+            localStorage.setItem('carrinho', JSON.stringify(carrinho))
             console.log(carrinho)
-            const valorCarrinho = new Intl.NumberFormat("pt-BR").format(precoCarrinho(carrinho))    
+            const valorCarrinho = new Intl.NumberFormat("pt-BR").format(precoCarrinho(carrinho))   
             totalCarrinho.innerText = `Valor total do carrinho R$ ${valorCarrinho}`
             totalProdutos.innerText = `Quantidade de itens no carrinho ${qtdItens(carrinho)}`
         }
@@ -48,6 +60,7 @@ comprar.addEventListener('click', () => {
         result = buscarNomeProduto(inputProduto)
         if(result){
             carrinho.push(result)
+            localStorage.setItem('carrinho', JSON.stringify(carrinho))
             const valorCarrinho = new Intl.NumberFormat("pt-BR").format(precoCarrinho(carrinho))    
             totalCarrinho.innerText = `Total do carrinho R$ ${valorCarrinho}`
             totalProdutos.innerText = `Quantidade de itens no carrinho ${qtdItens(carrinho)}`
